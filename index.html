@@ -45,46 +45,141 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
-        .form-input {
+        /* Replicated Form.id checkout styling */
+        .form-id-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto;
+            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+            text-align: left;
+        }
+        .form-id-body {
+            padding: 20px;
+        }
+        .form-id-section-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 20px 0 12px 0;
+        }
+        .form-id-section-text {
+            font-weight: 700;
+            font-size: 14px;
+            color: #1e293b;
+            white-space: nowrap;
+        }
+        .form-id-divider {
+            flex-grow: 1;
+            height: 1px;
+            background-color: #E2E8F0;
+        }
+        .form-id-label-sub {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .form-id-package-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .form-id-package-opt {
+            border: 1.5px solid #E2E8F0;
+            background-color: white;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            font-weight: 600;
+            font-size: 13px;
+            color: #475569;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            box-sizing: border-box;
+        }
+        .form-id-package-opt.active {
+            border: 2px solid #2563EB;
+            background-color: #EFF6FF;
+            color: #1E3A8A;
+            font-weight: 700;
+        }
+        .form-id-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background-color: #10B981;
+            color: white;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            border: 1px solid white;
+            font-weight: bold;
+        }
+        .form-id-package-opt.active .form-id-badge {
+            display: flex;
+        }
+        .form-id-input-group {
+            margin-bottom: 12px;
+        }
+        .form-id-input {
             width: 100%;
             padding: 12px 16px;
-            border: 1px solid #cccccc;
-            border-radius: 10px;
+            border: 1.5px solid #CBD5E1;
+            border-radius: 6px;
             font-size: 14px;
             box-sizing: border-box;
-            background-color: #fcfcfc;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            background-color: #ffffff;
+            transition: all 0.2s;
+            font-family: inherit;
         }
-        .form-input:focus {
+        .form-id-input:focus {
             outline: none;
-            border-color: #8B0000;
-            box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
         }
-        .submit-btn {
+        .form-id-submit {
             width: 100%;
-            background-color: #FFD700;
-            color: #8B0000;
-            border: 2px solid #8B0000;
+            background-color: #00C800;
+            color: white;
+            border: none;
             padding: 16px;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 800;
-            border-radius: 12px;
+            border-radius: 6px;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 200, 0, 0.2);
             transition: all 0.2s ease-in-out;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            text-transform: uppercase;
+            font-family: inherit;
+            margin-top: 16px;
             animation: pulse-button 2s infinite ease-in-out;
         }
-        .submit-btn:hover {
-            background-color: #E6C200;
-            transform: scale(1.02);
+        .form-id-submit:hover {
+            background-color: #00A600;
         }
         @keyframes pulse-button {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.04); }
+            50% { transform: scale(1.02); }
         }
         /* Mobile Sticky CTA styling */
         .mobile-sticky-cta {
@@ -573,10 +668,21 @@
                                             const hrs = Math.floor(diff / 3600);
                                             const mins = Math.floor((diff % 3600) / 60);
                                             const secs = diff % 60;
+                                            
+                                            // Main countdown
                                             document.getElementById('cd-hours').textContent = pad(hrs);
                                             document.getElementById('cd-mins').textContent  = pad(mins);
                                             document.getElementById('cd-secs').textContent  = pad(secs);
                                             document.getElementById('cd-bar').style.width   = ((diff / COUNTDOWN_DURATION) * 100) + '%';
+                                            
+                                            // Form header countdown
+                                            const fh = document.getElementById('form-hours');
+                                            const fm = document.getElementById('form-minutes');
+                                            const fs = document.getElementById('form-seconds');
+                                            if (fh) fh.textContent = pad(hrs);
+                                            if (fm) fm.textContent = pad(mins);
+                                            if (fs) fs.textContent = pad(secs);
+
                                             setTimeout(tick, 1000);
                                         }
                                         tick();
@@ -596,64 +702,90 @@
                             <div class="elementor-element elementor-element-46e7eb15 elementor-widget elementor-widget-html" data-id="46e7eb15" data-element_type="widget" data-widget_type="html.default">
                                 <div class="elementor-widget-container">
                                     
-                                    <div class="checkout-card" id="form-pemesanan">
-                                        <h3 style="margin: 0 0 10px 0; font-size: clamp(20px, 3.5vw, 24px); font-weight: 800; color: #111; text-align: center;">FORMULIR PEMESANAN</h3>
-                                        <p style="margin: 0 0 24px 0; font-size: 13px; color: #666; text-align: center; line-height: 1.5;">Isi data di bawah dengan benar. Pembayaran COD aman, barang sampai baru Anda bayar.</p>
-                                        
-                                        <form id="wa-checkout-form">
-                                            <!-- Nama -->
-                                            <div class="form-group">
-                                                <label class="form-label">Nama Lengkap *</label>
-                                                <input type="text" id="cust-name" required class="form-input" placeholder="Masukkan nama lengkap Anda">
+                                    <div class="form-id-card" id="form-pemesanan">
+                                        <!-- Red Flash Sale Header -->
+                                        <div style="background-color: #D92525; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; color: white;">
+                                            <div>
+                                                <div style="font-weight: 800; font-size: 16px; line-height: 1.2;">FLASH SALE!</div>
+                                                <div style="font-size: 11px; opacity: 0.9;">Buruan! Sebelum Promo habis</div>
                                             </div>
-                                            
-                                            <!-- WhatsApp -->
-                                            <div class="form-group">
-                                                <label class="form-label">Nomor WhatsApp Aktif *</label>
-                                                <input type="tel" id="cust-phone" required class="form-input" placeholder="Contoh: 08123456789">
+                                            <div style="display: flex; align-items: center; gap: 4px;">
+                                                <div style="text-align: center;">
+                                                    <div id="form-hours" style="background: white; color: #111; font-weight: 800; font-size: 14px; padding: 4px 6px; border-radius: 4px; min-width: 24px; line-height: 1;">02</div>
+                                                    <div style="font-size: 9px; margin-top: 2px; color: #fff;">Jam</div>
+                                                </div>
+                                                <div style="font-weight: 800; margin-bottom: 12px;">:</div>
+                                                <div style="text-align: center;">
+                                                    <div id="form-minutes" style="background: white; color: #111; font-weight: 800; font-size: 14px; padding: 4px 6px; border-radius: 4px; min-width: 24px; line-height: 1;">45</div>
+                                                    <div style="font-size: 9px; margin-top: 2px; color: #fff;">Menit</div>
+                                                </div>
+                                                <div style="font-weight: 800; margin-bottom: 12px;">:</div>
+                                                <div style="text-align: center;">
+                                                    <div id="form-seconds" style="background: white; color: #111; font-weight: 800; font-size: 14px; padding: 4px 6px; border-radius: 4px; min-width: 24px; line-height: 1;">18</div>
+                                                    <div style="font-size: 9px; margin-top: 2px; color: #fff;">Detik</div>
+                                                </div>
                                             </div>
-                                            
-                                            <!-- Paket Pilihan -->
-                                            <div class="form-group">
-                                                <label class="form-label">Pilih Paket Promo *</label>
-                                                <select id="cust-package" required class="form-input" style="height: 48px; cursor: pointer;">
-                                                    <option value="" disabled selected>-- Pilih Paket --</option>
-                                                    <option value="Paket Coba-Coba: 1 Jar (Rp 149.000)">Paket Coba-Coba: 1 Jar (Rp 149.000)</option>
-                                                    <option value="Paket Hemat: Beli 2 Lebih Hemat (Rp 249.000) - Terlaris!">Paket Hemat: Beli 2 Lebih Hemat (Rp 249.000) - Terlaris!</option>
-                                                    <option value="Paket Sembuh Total: Beli 3 Jar (Rp 329.000)">Paket Sembuh Total: Beli 3 Jar (Rp 329.000)</option>
-                                                </select>
+                                        </div>
+
+                                        <div class="form-id-body">
+                                            <!-- Stock Progress Bar -->
+                                            <div style="margin-bottom: 20px;">
+                                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                                    <span style="font-weight: 700; font-size: 14px; color: #333;">Produk Terjual</span>
+                                                    <span style="font-weight: 700; font-size: 14px; color: #10B981;">Tersisa 74</span>
+                                                </div>
+                                                <div style="background-color: #FEE2E2; border-radius: 9999px; height: 22px; position: relative; overflow: hidden; display: flex; align-items: center; border: 1px solid #FCA5A5; box-sizing: border-box;">
+                                                    <div style="background-color: #EF4444; width: 93.8%; height: 100%; border-radius: 9999px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; box-sizing: border-box;">
+                                                        <span style="color: white; font-size: 11px; font-weight: 700; margin-right: 4px;">Terjual 11.789</span>
+                                                        <span style="background: white; border-radius: 50%; width: 14px; height: 14px; display: inline-flex; align-items: center; justify-content: center; font-size: 9px;">🔥</span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            
-                                            <!-- Provinsi -->
-                                            <div class="form-group">
-                                                <label class="form-label">Provinsi *</label>
-                                                <input type="text" id="cust-province" required class="form-input" placeholder="Masukkan provinsi">
-                                            </div>
-                                            
-                                            <!-- Kota -->
-                                            <div class="form-group">
-                                                <label class="form-label">Kota / Kabupaten *</label>
-                                                <input type="text" id="cust-city" required class="form-input" placeholder="Masukkan kota atau kabupaten">
-                                            </div>
-                                            
-                                            <!-- Kecamatan -->
-                                            <div class="form-group">
-                                                <label class="form-label">Kecamatan *</label>
-                                                <input type="text" id="cust-district" required class="form-input" placeholder="Masukkan kecamatan">
-                                            </div>
-                                            
-                                            <!-- Alamat Lengkap -->
-                                            <div class="form-group">
-                                                <label class="form-label">Alamat Lengkap & Patokan Rumah *</label>
-                                                <textarea id="cust-address" required class="form-input" rows="3" style="resize: none;" placeholder="Nama Jalan, RT/RW, No. Rumah, Kelurahan, & Patokan"></textarea>
-                                            </div>
-                                            
-                                            <!-- Submit -->
-                                            <button type="submit" class="submit-btn">
-                                                <i class="fa-brands fa-whatsapp" style="font-size: 20px;"></i>
-                                                PESAN SEKARANG (BISA COD)
-                                            </button>
-                                        </form>
+
+                                            <form id="wa-checkout-form">
+                                                <!-- Pilihan Produk Section -->
+                                                <div class="form-id-section-title">
+                                                    <span class="form-id-section-text">Pilihan Produk:</span>
+                                                    <div class="form-id-divider"></div>
+                                                </div>
+                                                <div class="form-id-label-sub">Promo</div>
+                                                
+                                                <div class="form-id-package-grid">
+                                                    <!-- Option 1: Selected by default -->
+                                                    <div id="opt-1" class="form-id-package-opt active" onclick="selectProduct(1)">
+                                                        1 BOTOL (PROMO)
+                                                        <div class="form-id-badge">✓</div>
+                                                    </div>
+                                                    <!-- Option 2 -->
+                                                    <div id="opt-2" class="form-id-package-opt" onclick="selectProduct(2)">
+                                                        2 BOTOL (PAKET HEMAT)
+                                                        <div class="form-id-badge">✓</div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Data Penerima Section -->
+                                                <div class="form-id-section-title">
+                                                    <span class="form-id-section-text">Data Penerima:</span>
+                                                    <div class="form-id-divider"></div>
+                                                </div>
+
+                                                <!-- Inputs -->
+                                                <div class="form-id-input-group">
+                                                    <input type="text" id="cust-name" required class="form-id-input" placeholder="Nama Anda *">
+                                                </div>
+                                                <div class="form-id-input-group">
+                                                    <input type="tel" id="cust-phone" required class="form-id-input" placeholder="No. WhatsApp Anda *">
+                                                </div>
+                                                <div class="form-id-input-group">
+                                                    <textarea id="cust-address" required class="form-id-input" rows="3" style="resize: none;" placeholder="Alamat Lengkap Anda *"></textarea>
+                                                </div>
+
+                                                <!-- Submit Button -->
+                                                <button type="submit" class="form-id-submit">
+                                                    KLIK DISINI &gt;&gt;
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                     
                                 </div>
@@ -812,26 +944,32 @@
     <script>
         // WhatsApp Redirect Handler
         const TARGET_PHONE_NUMBER = "6282138241088"; // Ganti dengan nomor WA admin Anda
+        let selectedPackage = "1 BOTOL (PROMO)";
+
+        function selectProduct(id) {
+            if (id === 1) {
+                selectedPackage = "1 BOTOL (PROMO)";
+                document.getElementById('opt-1').classList.add('active');
+                document.getElementById('opt-2').classList.remove('active');
+            } else {
+                selectedPackage = "2 BOTOL (PAKET HEMAT)";
+                document.getElementById('opt-2').classList.add('active');
+                document.getElementById('opt-1').classList.remove('active');
+            }
+        }
 
         document.getElementById('wa-checkout-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const name = document.getElementById('cust-name').value.trim();
             const phone = document.getElementById('cust-phone').value.trim();
-            const packageVal = document.getElementById('cust-package').value;
-            const province = document.getElementById('cust-province').value.trim();
-            const city = document.getElementById('cust-city').value.trim();
-            const district = document.getElementById('cust-district').value.trim();
             const address = document.getElementById('cust-address').value.trim();
 
             const textMessage = `Halo Admin,\nSaya ingin memesan Produk Zhiyang Herbal via COD:\n\n` +
                                 `*Nama Lengkap:* ${name}\n` +
                                 `*Nomor WhatsApp:* ${phone}\n` +
-                                `*Paket Pilihan:* ${packageVal}\n` +
-                                `*Provinsi:* ${province}\n` +
-                                `*Kota/Kabupaten:* ${city}\n` +
-                                `*Kecamatan:* ${district}\n` +
-                                `*Alamat Lengkap & Patokan:* ${address}\n\n` +
+                                `*Paket Pilihan:* ${selectedPackage}\n` +
+                                `*Alamat Lengkap:* ${address}\n\n` +
                                 `Mohon segera diproses ya. Terima kasih!`;
 
             const encoded = encodeURIComponent(textMessage);
